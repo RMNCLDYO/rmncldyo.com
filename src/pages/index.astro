@@ -123,14 +123,16 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
       sessionStorage.setItem("backUrl", "/");
     }
 
-    const thinkingDiv = document.querySelector("#thinking") as HTMLElement | null;
-    
+    const thinkingDiv = document.querySelector(
+      "#thinking"
+    ) as HTMLElement | null;
+
     if (thinkingDiv) {
       const animation = new ThinkingAnimation({
         dotsElement: document.querySelector("#dots"),
         timerElement: document.querySelector("#timer"),
         tokensElement: document.querySelector("#tokens"),
-        thinkingContainer: thinkingDiv
+        thinkingContainer: thinkingDiv,
       });
 
       // Clean up on page navigation
