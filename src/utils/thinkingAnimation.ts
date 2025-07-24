@@ -36,9 +36,15 @@ export class ThinkingAnimation {
     this.options.thinkingContainer.innerHTML =
       'Thinking<span id="dots">...</span> (<span id="timer">0</span>s · <span id="tokens">0</span> tokens · esc to interrupt)';
 
-    const newDots = this.options.thinkingContainer.querySelector("#dots") as HTMLElement;
-    const newTimer = this.options.thinkingContainer.querySelector("#timer") as HTMLElement;
-    const newTokens = this.options.thinkingContainer.querySelector("#tokens") as HTMLElement;
+    const newDots = this.options.thinkingContainer.querySelector(
+      "#dots"
+    ) as HTMLElement;
+    const newTimer = this.options.thinkingContainer.querySelector(
+      "#timer"
+    ) as HTMLElement;
+    const newTokens = this.options.thinkingContainer.querySelector(
+      "#tokens"
+    ) as HTMLElement;
 
     this.timerInterval = setInterval(() => {
       this.seconds++;
@@ -75,7 +81,7 @@ export class ThinkingAnimation {
   private showInterruptMessage() {
     this.isShowingMessage = true;
     this.cleanup();
-    
+
     if (this.options.thinkingContainer) {
       this.options.thinkingContainer.textContent =
         "ERROR: Ray cant stop thinking, please try again later...";
