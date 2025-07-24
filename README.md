@@ -1,3 +1,5 @@
+![rmncldyo.com](public/assets/rmncldyo-site.gif)
+
 # Hello, World!
 
 I'm Ray. A software developer who believes in building useful tools and sharing them with the community. I write code that I'd want to use myself, and I try to make it as clean and accessible as possible.
