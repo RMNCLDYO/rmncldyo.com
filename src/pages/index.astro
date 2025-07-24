@@ -25,7 +25,7 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
   <main id="main-content" data-layout="index">
     <section id="hero" class="pt-8 pb-6">
       <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
-        Mingalaba
+        [about.ray]
       </h1>
       <a
         target="_blank"
@@ -43,20 +43,21 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
       </a>
 
       <p>
-        AstroPaper is a minimal, responsive, accessible and SEO-friendly Astro
-        blog theme. This theme follows best practices and provides accessibility
-        out of the box. Light and dark mode are supported by default. Moreover,
-        additional color schemes can also be configured.
+        I'm Ray. A software developer who believes in building useful tools and
+        sharing them with the community. I write code that I'd want to use
+        myself, and I try to make it as clean and accessible as possible. Here
+        you'll find my open source projects, technical deep-dives, and practical
+        insights from building software in public. Whether you're looking for
+        tools to streamline your workflow or curious about the lessons I've
+        learned along the way, this is where I share it all.
       </p>
-      <p class="mt-2">
-        Read the blog posts or check
-        <LinkButton
-          class="underline decoration-dashed underline-offset-4 hover:text-accent"
-          href="https://github.com/satnaing/astro-paper#readme"
-        >
-          README
-        </LinkButton> for more info.
-      </p>
+
+      <div id="thinking" class="my-4 font-mono text-sm text-muted">
+        Thinking<span id="dots">...</span> (<span id="timer">0</span>s · <span
+          id="tokens">0</span
+        > tokens · esc to interrupt)
+      </div>
+
       {
         // only display if at least one social link is enabled
         SOCIALS.length > 0 && (
@@ -74,7 +75,9 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
       featuredPosts.length > 0 && (
         <>
           <section id="featured" class="pt-12 pb-6">
-            <h2 class="text-2xl font-semibold tracking-wide">Featured</h2>
+            <h2 class="text-2xl font-semibold tracking-wide">
+              [rays.thoughts-ideas-and-rants]
+            </h2>
             <ul>
               {featuredPosts.map(data => (
                 <Card variant="h3" {...data} />
@@ -102,7 +105,7 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 
     <div class="my-8 text-center">
       <LinkButton href="/posts/">
-        All Posts
+        i'd like more please, thanks
         <IconArrowRight class="inline-block rtl:-rotate-180" />
       </LinkButton>
     </div>
@@ -116,6 +119,76 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
       ?.dataset?.layout;
     if (indexLayout) {
       sessionStorage.setItem("backUrl", "/");
+    }
+
+    const dots = document.querySelector("#dots");
+    const timer = document.querySelector("#timer");
+    const tokens = document.querySelector("#tokens");
+    const thinkingDiv = document.querySelector("#thinking");
+    let seconds = 0;
+    let tokenCount = 0;
+    let dotCount = 0;
+    let timerInterval: number;
+    let dotsInterval: number;
+    let tokensInterval: number;
+    let escapeTimeout: number;
+    let isShowingMessage = false;
+
+    function startAnimation() {
+      seconds = 0;
+      tokenCount = 0;
+      dotCount = 0;
+      isShowingMessage = false;
+
+      thinkingDiv.innerHTML =
+        'Thinking<span id="dots">...</span> (<span id="timer">0</span>s · <span id="tokens">0</span> tokens · esc to interrupt)';
+
+      const newDots = document.querySelector("#dots");
+      const newTimer = document.querySelector("#timer");
+      const newTokens = document.querySelector("#tokens");
+
+      timerInterval = setInterval(() => {
+        seconds++;
+        if (newTimer) newTimer.textContent = seconds.toString();
+      }, 1000);
+
+      dotsInterval = setInterval(() => {
+        dotCount = (dotCount + 1) % 4;
+        if (newDots) newDots.textContent = ".".repeat(dotCount || 1);
+      }, 500);
+
+      tokensInterval = setInterval(() => {
+        const increment = Math.floor(Math.random() * 6) + 3;
+        tokenCount += increment;
+        if (newTokens) newTokens.textContent = tokenCount.toLocaleString();
+      }, 50);
+    }
+
+    if (thinkingDiv) {
+      startAnimation();
+
+      document.addEventListener("keydown", event => {
+        if (event.key === "Escape") {
+          if (isShowingMessage) {
+            clearTimeout(escapeTimeout);
+            clearInterval(timerInterval);
+            clearInterval(dotsInterval);
+            clearInterval(tokensInterval);
+            startAnimation();
+          } else {
+            isShowingMessage = true;
+            clearInterval(timerInterval);
+            clearInterval(dotsInterval);
+            clearInterval(tokensInterval);
+            thinkingDiv.textContent =
+              "ERROR: Ray cant stop thinking, please try again later...";
+
+            escapeTimeout = setTimeout(() => {
+              startAnimation();
+            }, 3000);
+          }
+        }
+      });
     }
   });
 </script>
