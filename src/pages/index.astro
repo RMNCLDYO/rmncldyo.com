@@ -114,6 +114,8 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 </Layout>
 
 <script>
+  import { ThinkingAnimation } from "@/utils/thinkingAnimation";
+
   document.addEventListener("astro:page-load", () => {
     const indexLayout = (document.querySelector("#main-content") as HTMLElement)
       ?.dataset?.layout;
@@ -121,73 +123,19 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
       sessionStorage.setItem("backUrl", "/");
     }
 
-    const dots = document.querySelector("#dots");
-    const timer = document.querySelector("#timer");
-    const tokens = document.querySelector("#tokens");
-    const thinkingDiv = document.querySelector("#thinking");
-    let seconds = 0;
-    let tokenCount = 0;
-    let dotCount = 0;
-    let timerInterval: number;
-    let dotsInterval: number;
-    let tokensInterval: number;
-    let escapeTimeout: number;
-    let isShowingMessage = false;
-
-    function startAnimation() {
-      seconds = 0;
-      tokenCount = 0;
-      dotCount = 0;
-      isShowingMessage = false;
-
-      thinkingDiv.innerHTML =
-        'Thinking<span id="dots">...</span> (<span id="timer">0</span>s · <span id="tokens">0</span> tokens · esc to interrupt)';
-
-      const newDots = document.querySelector("#dots");
-      const newTimer = document.querySelector("#timer");
-      const newTokens = document.querySelector("#tokens");
-
-      timerInterval = setInterval(() => {
-        seconds++;
-        if (newTimer) newTimer.textContent = seconds.toString();
-      }, 1000);
-
-      dotsInterval = setInterval(() => {
-        dotCount = (dotCount + 1) % 4;
-        if (newDots) newDots.textContent = ".".repeat(dotCount || 1);
-      }, 500);
-
-      tokensInterval = setInterval(() => {
-        const increment = Math.floor(Math.random() * 6) + 3;
-        tokenCount += increment;
-        if (newTokens) newTokens.textContent = tokenCount.toLocaleString();
-      }, 50);
-    }
-
+    const thinkingDiv = document.querySelector("#thinking") as HTMLElement | null;
+    
     if (thinkingDiv) {
-      startAnimation();
+      const animation = new ThinkingAnimation({
+        dotsElement: document.querySelector("#dots"),
+        timerElement: document.querySelector("#timer"),
+        tokensElement: document.querySelector("#tokens"),
+        thinkingContainer: thinkingDiv
+      });
 
-      document.addEventListener("keydown", event => {
-        if (event.key === "Escape") {
-          if (isShowingMessage) {
-            clearTimeout(escapeTimeout);
-            clearInterval(timerInterval);
-            clearInterval(dotsInterval);
-            clearInterval(tokensInterval);
-            startAnimation();
-          } else {
-            isShowingMessage = true;
-            clearInterval(timerInterval);
-            clearInterval(dotsInterval);
-            clearInterval(tokensInterval);
-            thinkingDiv.textContent =
-              "ERROR: Ray cant stop thinking, please try again later...";
-
-            escapeTimeout = setTimeout(() => {
-              startAnimation();
-            }, 3000);
-          }
-        }
+      // Clean up on page navigation
+      document.addEventListener("astro:before-swap", () => {
+        animation.destroy();
       });
     }
   });
