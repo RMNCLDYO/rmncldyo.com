@@ -21,6 +21,6 @@ I'll be sharing:
 
 Got questions? Want to collaborate on something? Found a bug in one of my projects? Shoot me a message at _[hi@rmncldyo.com](mailto:hi@rmncldyo.com)_.
 
-You can find my work on ***[GitHub](https://github.com/rmnldyo)***, and I'm always open to feedback and contributions.
+You can find my work on **_[GitHub](https://github.com/rmnldyo)_**, and I'm always open to feedback and contributions.
 
 - Ray
