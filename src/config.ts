@@ -1,7 +1,7 @@
 export const SITE = {
-  website: "https://rmncldyo.com",
+  website: "https://rmncldyo.vercel.app",
   author: "RMNCLDYO",
-  profile: "https://rmncldyo.com",
+  profile: "https://rmncldyo.vercel.app",
   desc: "Software Engineer",
   title: "RMNCLDYO",
   ogImage: "rmncldyo-og.jpg",
