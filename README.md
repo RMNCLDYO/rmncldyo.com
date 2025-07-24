@@ -14,6 +14,6 @@ I'll be sharing:
 
 ### Let's Build
 
-Have a question? Shoot me a message on ***[X](https://x.com/rmnldyo)***. Found a bug in one of my projects? Open an issue or discussion on ***[GitHub](https://github.com/rmnldyo)***. Want to collaborate on something? Email me at ***[hi@rmncldyo.com](mailto:hi@rmncldyo.com)***. I'm always looking for new opportunities to learn and grow.
+Have a question? Shoot me a message on **_[X](https://x.com/rmnldyo)_**. Found a bug in one of my projects? Open an issue or discussion on **_[GitHub](https://github.com/rmnldyo)_**. Want to collaborate on something? Email me at **_[hi@rmncldyo.com](mailto:hi@rmncldyo.com)_**. I'm always looking for new opportunities to learn and grow.
 
 - Ray
